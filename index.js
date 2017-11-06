@@ -3,20 +3,20 @@ var bodyParser = require('body-parser');
 var request = require('superagent');
 var md5 = require('md5');
 var app = express();
-var mailchimpInstance   = 'us7',
-    listUniqueId        = '369087d943',
-    mailchimpApiKey     = 'c9ba9fac14c02a3111d624d409a0b5b5-us7';
+var mailchimpInstance   = 'XXX',
+    listUniqueId        = 'XXXXXXXXXX',
+    mailchimpApiKey     = 'XXXXXXXXXXXXXXXXXXX';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('views'));
 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.send('Just the root');
 });
 
 app.listen(3000, function () {
-  console.log('Running on port 3000!');
+  console.log('You can find me at http://localhost:3000');
 });
 
 app.post('/signup', function (req, res) {
@@ -30,11 +30,11 @@ app.post('/signup', function (req, res) {
         })
             .end(function(err, response) {
               if (response.status < 300) {
-                res.send('Added');
+                res.send('Subscribed to the list');
               } else if (response.status === 400 && response.body.title === "Member Exists") {
               	res.send('Already on the list');
               } else {
-                res.send('Fail');
+                res.send('Failed');
               }
           });
 });
@@ -53,7 +53,7 @@ app.post('/update', function (req, res) {
               if (response.status < 300) {
                 res.send('Updated');
               } else {
-                res.send('Fail');
+                res.send('Failed');
               }
           });
 });
